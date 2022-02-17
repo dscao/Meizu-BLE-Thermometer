@@ -10,6 +10,9 @@
 #include <esp_gap_ble_api.h>
 #include <esp_bt_defs.h>
 #include <esp_gattc_api.h>
+#include <freertos/FreeRTOS.h>
+#include <freertos/semphr.h>
+#include <esp32-hal-bt.h>
 
 namespace esphome {
 namespace esp32_ble_client {
