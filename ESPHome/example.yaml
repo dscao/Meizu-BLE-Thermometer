@@ -15,6 +15,10 @@ api:
 
 ota:
 
+external_components:
+  - source: my_components
+    components: [ esp32_ble_client, meizu_ble, meizu_ble_transmitter ]
+    
 esp32_ble_client:
 
 sensor:
