@@ -1,9 +1,9 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.const import CONF_ID, CONF_TIMEOUT, ESP_PLATFORM_ESP32
+from esphome.const import CONF_ID, CONF_TIMEOUT, PLATFORM_ESP32
 from esphome.core import coroutine
 
-ESP_PLATFORMS = [ESP_PLATFORM_ESP32]
+ESP_PLATFORMS = [PLATFORM_ESP32]
 
 CONF_ESP32_BLE_ID = 'esp32_ble_id'
 esp32_ble_client_ns = cg.esphome_ns.namespace('esp32_ble_client')

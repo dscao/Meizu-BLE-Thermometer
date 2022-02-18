@@ -2,15 +2,20 @@
 #include "esphome/core/log.h"
 #include "esphome/core/application.h"
 
+
 #ifdef ARDUINO_ARCH_ESP32
 
+#include <freertos/FreeRTOS.h>
 #include <nvs_flash.h>
 #include <freertos/FreeRTOSConfig.h>
 #include <esp_bt_main.h>
 #include <esp_bt.h>
 #include <freertos/task.h>
+#include <freertos/semphr.h>
 #include <esp_bt_defs.h>
 #include <esp_gattc_api.h>
+
+
 
 // bt_trace.h
 #undef TAG
