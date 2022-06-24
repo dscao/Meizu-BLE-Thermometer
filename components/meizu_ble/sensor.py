@@ -1,8 +1,10 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
+from typing import Optional
 from esphome.components import sensor, esp32_ble_client
 from esphome.const import CONF_BATTERY_LEVEL, CONF_HUMIDITY, CONF_MAC_ADDRESS, CONF_TEMPERATURE, CONF_UPDATE_INTERVAL, \
-    UNIT_CELSIUS, UNIT_VOLT, ICON_THERMOMETER, UNIT_PERCENT, ICON_WATER_PERCENT, ICON_BATTERY, CONF_ID
+    UNIT_CELSIUS, UNIT_VOLT, UNIT_PERCENT, CONF_ID, DEVICE_CLASS_TEMPERATURE, DEVICE_CLASS_HUMIDITY, DEVICE_CLASS_BATTERY, \
+    DEVICE_CLASS_VOLTAGE, STATE_CLASS_MEASUREMENT, ENTITY_CATEGORY_DIAGNOSTIC
 
 DEPENDENCIES = ['esp32_ble_client']
 
@@ -12,9 +14,22 @@ MeizuBLE = meizu_ble_ns.class_('MeizuBLE', esp32_ble_client.ESPBTClientListener,
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(MeizuBLE),
     cv.Required(CONF_MAC_ADDRESS): cv.mac_address,
-    cv.Optional(CONF_TEMPERATURE): sensor.sensor_schema(UNIT_CELSIUS, ICON_THERMOMETER, 1),
-    cv.Optional(CONF_HUMIDITY): sensor.sensor_schema(UNIT_PERCENT, ICON_WATER_PERCENT, 1),
-    cv.Optional(CONF_BATTERY_LEVEL): sensor.sensor_schema(UNIT_VOLT, ICON_BATTERY, 1),
+    cv.Optional(CONF_TEMPERATURE): sensor.sensor_schema(unit_of_measurement=UNIT_CELSIUS,
+                                                        accuracy_decimals=0,
+                                                        device_class=DEVICE_CLASS_TEMPERATURE,
+                                                        state_class=STATE_CLASS_MEASUREMENT,
+                                                        ),
+    cv.Optional(CONF_HUMIDITY): sensor.sensor_schema(unit_of_measurement=UNIT_PERCENT,
+                                                        accuracy_decimals=0,
+                                                        device_class=DEVICE_CLASS_HUMIDITY,
+                                                        state_class=STATE_CLASS_MEASUREMENT,
+                                                        ),
+    cv.Optional(CONF_BATTERY_LEVEL): sensor.sensor_schema(unit_of_measurement=UNIT_VOLT,
+                                                        accuracy_decimals=1,
+                                                        device_class=DEVICE_CLASS_VOLTAGE,
+                                                        state_class=STATE_CLASS_MEASUREMENT,
+                                                        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+                                                        ),
     cv.Optional(CONF_UPDATE_INTERVAL, default='180s'): cv.positive_time_period_milliseconds,
 }).extend(esp32_ble_client.ESP_BLE_DEVICE_SCHEMA).extend(cv.COMPONENT_SCHEMA)
 
