@@ -166,7 +166,7 @@ static esp_bt_uuid_t str2uuid(std::string value) {
 	return uuid;
 }
 
-static void print_uuid(esp_bt_uuid_t uuid) {
+__attribute__((unused)) static void print_uuid(esp_bt_uuid_t uuid) {
   if (uuid.len == ESP_UUID_LEN_16) {
 	  ESP_LOGI(TAG, "UUID16: %x", uuid.uuid.uuid16);
   } else if (uuid.len == ESP_UUID_LEN_32) {
